@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">PizzaTime</string>
+    <string name="personal_size">Personal </string>
+    <string name="medium_size">Medium </string>
+    <string name="large_size">Large </string>
+    <string name="text_pizza_size">Choose your pizza size :</string>
+    <string name="txt_pizza_topping">Choose your favourite toppings :</string>
+    <string name="txt_topping_rules"><small>*you can choose up to 4 <b>free</b> toppings for 1 pizza</small></string>
+    <string name="btn_order">Order</string>
+    <string name="topping1">Mushroom</string>
+    <string name="topping2">Pepperoni</string>
+    <string name="topping3">Extra Cheese</string>
+    <string name="topping4">Sausage</string>
+    <string name="topping5">Black Olives</string>
+    <string name="topping6">Onion</string>
+    <string name="topping7">Green Pepper</string>
+    <string name="topping8">Fresh Basil</string>
+    <string name="topping9">Fresh Garlic</string>
+</resources>
