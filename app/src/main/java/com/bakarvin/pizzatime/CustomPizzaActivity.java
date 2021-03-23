@@ -7,6 +7,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -216,7 +217,7 @@ public class CustomPizzaActivity extends AppCompatActivity {
         customPizza.btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pricePizza();
+                startActivity(new Intent(getApplicationContext(), TimerOrderActivity.class));
             }
         });
     }

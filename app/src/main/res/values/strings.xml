@@ -17,4 +17,6 @@
     <string name="topping7">Green Pepper</string>
     <string name="topping8">Fresh Basil</string>
     <string name="topping9">Fresh Garlic</string>
+    <string name="order_text_1">Pesananmu sedang dibuat !!</string>
+    <string name="order_text_2">Prepare your tummy, because your order will ready in :</string>
 </resources>
