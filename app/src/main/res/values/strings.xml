@@ -5,7 +5,8 @@
     <string name="medium_size">Medium </string>
     <string name="large_size">Large </string>
     <string name="text_pizza_size">Choose your pizza size :</string>
-    <string name="txt_pizza_topping">Choose your favourite toppings :</string>
+    <string name="txt_pizza_topping">Choose your toppings :</string>
+    <string name="txt_extra_topping">Extra toppings :</string>
     <string name="txt_topping_rules"><small>*you can choose up to 4 <b>free</b> toppings for 1 pizza</small></string>
     <string name="btn_order">Order</string>
     <string name="topping1">Mushroom</string>
@@ -19,4 +20,9 @@
     <string name="topping9">Fresh Garlic</string>
     <string name="order_text_1">Pesananmu sedang dibuat !!</string>
     <string name="order_text_2">Prepare your tummy, because your order will ready in :</string>
+    <string name="ex3">3</string>
+    <string name="ex4">4</string>
+    <string name="ex5">5</string>
+    <string name="txt_sub_total">Sub Total :</string>
+    <string name="price_tag">Rp. XXX ,-</string>
 </resources>

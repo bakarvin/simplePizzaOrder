@@ -2,14 +2,17 @@ package com.bakarvin.pizzatime;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ClipData;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.bakarvin.pizzatime.Adapter.AdapterTopping;
+import com.bakarvin.pizzatime.Model.ModelTopping;
 import com.bakarvin.pizzatime.databinding.ActivityCustomPizzaBinding;
 import com.bakarvin.pizzatime.databinding.ItemOrderSummaryBinding;
 
@@ -31,9 +36,13 @@ public class CustomPizzaActivity extends AppCompatActivity {
     int freeToppings = 0;
     private Dialog myDialog;
     String sizePizza;
-    int priceSize;
+    double priceSize;
     int priceToppings;
+    double extraPriceToppings;
     ArrayList<String> myFreeToppings = new ArrayList<String>();
+    ArrayList<String> myExtraToppings = new ArrayList<String>();
+    ArrayList<ModelTopping> extraToppingsList = new ArrayList<>();
+    AdapterTopping adapterTopping;
     Context context;
 
     @Override
@@ -42,7 +51,9 @@ public class CustomPizzaActivity extends AppCompatActivity {
         customPizza = ActivityCustomPizzaBinding.inflate(getLayoutInflater());
         setContentView(customPizza.getRoot());
         priceToppings = 0;
+        extraPriceToppings = 0;
         context = this.getApplicationContext();
+        customPizza.txtSubTotal.setText("Rp. "+"0.0"+",-");
         customPizza.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -217,9 +228,61 @@ public class CustomPizzaActivity extends AppCompatActivity {
         customPizza.btnOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), TimerOrderActivity.class));
+//                startActivity(new Intent(getApplicationContext(), TimerOrderActivity.class));
             }
         });
+//        customPizza.itemCardOutter.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                itemCard();
+//            }
+//        });
+        getFreeToppings();
+        getExtraToppings();
+    }
+
+    private void getFreeToppings(){
+
+    }
+
+    private void getExtraToppings() {
+        extraToppingsList.addAll(DataToppings.getListData());
+        adapterTopping = new AdapterTopping(extraToppingsList, getBaseContext());
+        customPizza.rvExtraTopping.setAdapter(adapterTopping);
+        adapterTopping.ActionClick(new AdapterTopping.onAction() {
+            @Override
+            public void onActionClick(View view, int position) {
+                customPizza.txtExTop.setText(extraToppingsList.get(position).getHargaTopping());
+                String extra = customPizza.txtExTop.getText().toString();
+//                Toast.makeText(context, extra, Toast.LENGTH_SHORT).show();
+                onChecked(position, extra);
+            }
+        });
+    }
+
+    public void onChecked(int position, String extra){
+        if (extraToppingsList.get(position).clickedTopping()){
+//                    customPizza.btnOrder.setText(extraToppingsList.get(position).getHargaTopping());
+//                    myExtraToppings.remove(Integer.parseInt(String.valueOf(customPizza.txtExTop.getText())));
+//                    Toast.makeText(context, "off" + myExtraToppings.toString(), Toast.LENGTH_SHORT).show();
+            //beda
+//            customPizza.btnOrder.setText(extraToppingsList.get(position).getHargaTopping());
+//            myExtraToppings.remove(Integer.parseInt(String.valueOf(customPizza.btnOrder.getText())));
+//            Toast.makeText(context, myExtraToppings.toString(), Toast.LENGTH_SHORT).show();
+            myExtraToppings.remove(extra);
+        } else {
+            myExtraToppings.add(extra);
+//            customPizza.btnOrder.setText(extraToppingsList.get(position).getHargaTopping());
+//            myExtraToppings.add(Integer.parseInt(String.valueOf(customPizza.btnOrder.getText())));
+        }
+        double[] doubleList = new double[myExtraToppings.size()];
+        double sum = 0;
+        for (int i = 0; i < myExtraToppings.size(); ++i) {
+            doubleList[i] = Double.parseDouble(myExtraToppings.get(i));
+            sum += doubleList[i];
+        }
+        extraPriceToppings = sum;
+        pricePizza();
     }
 
     public void onButtonClicked(View v){
@@ -228,29 +291,34 @@ public class CustomPizzaActivity extends AppCompatActivity {
             case R.id.rbPersonal:
                 if (checked)
                     customPizza.txtRBSIZE.setText(customPizza.rbPersonal.getText().toString());
-                    sizePizza = "Personal";
-                    priceSize = 5;
-                    break;
+                sizePizza = "Personal";
+                priceSize = 30.0;
+                pricePizza();
+                break;
             case R.id.rbMedium:
                 if (checked)
                     customPizza.txtRBSIZE.setText(customPizza.rbMedium.getText().toString());
-                    sizePizza = "Medium";
-                    priceSize = 10;
-                    break;
+                sizePizza = "Medium";
+                priceSize = 55.0;
+                pricePizza();
+                break;
             case R.id.rbLarge:
                 if (checked)
                     customPizza.txtRBSIZE.setText(customPizza.rbLarge.getText().toString());
-                    sizePizza = "Large";
-                    priceSize = 15;
-                    break;
+                sizePizza = "Large";
+                priceSize = 70.0;
+                pricePizza();
+                break;
         }
     }
-    
-     public void pricePizza(){
-        int priceTotal = priceSize + priceToppings;
-        Toast.makeText(context, "Ukuran Pizza : " +  sizePizza +"\n Total Price : " + priceTotal, Toast.LENGTH_SHORT).show();
+
+    public void pricePizza(){
+        double dbl_priceTotal = priceSize + extraPriceToppings;
+        String str_priceTotal = String.valueOf(dbl_priceTotal);
+        customPizza.txtSubTotal.setText("Rp. "+str_priceTotal+",-");
+//        Toast.makeText(context, "Ukuran Pizza : " +  sizePizza +"\n Total Price : " + str_priceTotal, Toast.LENGTH_SHORT).show();
     }
-    
+
     private void openFilter(){
         AlertDialog builder = new AlertDialog.Builder(context).create();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
@@ -260,4 +328,28 @@ public class CustomPizzaActivity extends AppCompatActivity {
 //        orderSummary.txtFreeTop.setText(myFreeToppings.toString());
         builder.show();
     }
+
+//    public void itemCard(){
+//        ColorStateList background = customPizza.itemCardOutter.getCardBackgroundColor();
+//        if(background == getResources().getColorStateList(R.color.white)) {
+//            customPizza.itemCardOutter.setCardBackgroundColor(getResources().getColor(R.color.black));
+//        } else {
+//            customPizza.itemCardOutter.setCardBackgroundColor(getResources().getColor(R.color.white));
+//        }
+//    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
