@@ -49,6 +49,7 @@ public class ModelTopping {
     public void setClickedTopping(Boolean selected){
         clickedTopping = selected;
     }
+
     public boolean clickedTopping(){
         return clickedTopping;
     }

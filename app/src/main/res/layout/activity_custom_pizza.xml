@@ -47,6 +47,7 @@
                     <!-- HEADER -->
                     <!-- HEADER INDICATOR -->
                     <TextView
+                        android:paddingStart="5dp"
                         android:id="@+id/txtPizzaSize"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -74,13 +75,14 @@
                     android:id="@+id/expanLayoutSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple_200">
+                    android:background="@color/white">
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
+                        android:padding="5dp"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +100,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:maxLines="2"
+                                android:lines="2"
+                                android:background="@drawable/radio_selector"
+                                android:textColor="@drawable/text_color"
+                                android:textAlignment="center"
+                                android:button="@color/transparent"
                                 android:onClick="onButtonClicked"
                                 android:text="@string/personal_size" />
 
@@ -107,7 +113,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:maxLines="2"
+                                android:lines="2"
+                                android:textAlignment="center"
+                                android:background="@drawable/radio_selector"
+                                android:textColor="@drawable/text_color"
+                                android:button="@color/transparent"
                                 android:onClick="onButtonClicked"
                                 android:text="@string/medium_size" />
 
@@ -116,7 +126,11 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:maxLines="2"
+                                android:button="@color/transparent"
+                                android:background="@drawable/radio_selector"
+                                android:textColor="@drawable/text_color"
+                                android:lines="2"
+                                android:textAlignment="center"
                                 android:onClick="onButtonClicked"
                                 android:text="@string/large_size" />
                         </RadioGroup>
@@ -149,6 +163,7 @@
 
                     <!-- HEADER -->
                     <TextView
+                        android:paddingStart="5dp"
                         android:id="@+id/txtPizzaTopping"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -176,13 +191,12 @@
                     android:id="@+id/expanLayoutFreeTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple_200"
-                    android:padding="5dp">
+                    android:background="@color/white">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/purple_200">
+                        app:cardBackgroundColor="@color/white">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -195,92 +209,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="5dp"
                                 android:text="@string/txt_topping_rules"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/purple_200" />
 
-                            <TableLayout
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:layout_gravity="center_vertical"
+                                android:id="@+id/rvFreeTopping"
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TableRow
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent"
-                                    android:weightSum="3">
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox2"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping1" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping2" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox3"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping3" />
-                                </TableRow>
-
-                                <TableRow
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox4"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping4" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox6"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping5" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox5"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping6" />
-                                </TableRow>
-
-                                <TableRow
-                                    android:layout_width="match_parent"
-                                    android:layout_height="match_parent">
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox7"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping7" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox9"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping8" />
-
-                                    <CheckBox
-                                        android:id="@+id/checkBox8"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="@string/topping9" />
-                                </TableRow>
-
-                            </TableLayout>
+                                android:layout_height="match_parent"
+                                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                                app:spanCount="4"
+                                tools:listitem="@layout/item_toppings" />
 
                         </LinearLayout>
 
@@ -315,6 +253,7 @@
 
                     <!-- HEADER -->
                     <TextView
+                        android:paddingStart="5dp"
                         android:id="@+id/txtPizzaToppingExtra"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
@@ -342,12 +281,12 @@
                     android:id="@+id/expanLayoutExtraTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/purple_200">
+                    android:background="@color/white">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/purple_200">
+                        app:cardBackgroundColor="@color/white">
 
                         <LinearLayout
                             android:layout_width="match_parent"

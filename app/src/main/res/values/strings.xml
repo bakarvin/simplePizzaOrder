@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">PizzaTime</string>
-    <string name="personal_size">Personal </string>
-    <string name="medium_size">Medium </string>
-    <string name="large_size">Large </string>
+    <string name="personal_size">Personal \n ( 4 slices ) </string>
+    <string name="medium_size">Medium \n ( 8 slices ) </string>
+    <string name="large_size">Large \n ( 10 slices ) </string>
     <string name="text_pizza_size">Choose your pizza size :</string>
     <string name="txt_pizza_topping">Choose your toppings :</string>
     <string name="txt_extra_topping">Extra toppings :</string>
@@ -25,4 +25,7 @@
     <string name="ex5">5</string>
     <string name="txt_sub_total">Sub Total :</string>
     <string name="price_tag">Rp. XXX ,-</string>
+    <string name="top_name">Toppings Name</string>
+    <string name="extra_top">Extra Toppings :</string>
+    <string name="total">Total</string>
 </resources>
