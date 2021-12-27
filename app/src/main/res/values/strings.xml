@@ -8,7 +8,7 @@
     <string name="txt_pizza_topping">Choose your toppings :</string>
     <string name="txt_extra_topping">Extra toppings :</string>
     <string name="txt_topping_rules"><small>*you can choose up to 4 <b>free</b> toppings for 1 pizza</small></string>
-    <string name="btn_order">Order</string>
+    <string name="btn_order">Submit Order</string>
     <string name="topping1">Mushroom</string>
     <string name="topping2">Pepperoni</string>
     <string name="topping3">Extra Cheese</string>
@@ -23,9 +23,36 @@
     <string name="ex3">3</string>
     <string name="ex4">4</string>
     <string name="ex5">5</string>
+    <string name="ex33">33</string>
+    <string name="ex34">34</string>
+    <string name="ex35">35</string>
+    <string name="ex36">36</string>
+    <string name="ex37">37</string>
     <string name="txt_sub_total">Sub Total :</string>
     <string name="price_tag">Rp. XXX ,-</string>
     <string name="top_name">Toppings Name</string>
     <string name="extra_top">Extra Toppings :</string>
     <string name="total">Total</string>
+    <string name="est_text">EST</string>
+    <string name="est_time">00:00:00</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_text">You are one way closer to Pizza, please choose Login or Sign Up</string>
+    <string name="login_text">Welcome back, our pizza are waiting for you</string>
+    <string name="signup_text">Simply fill this form and you are ready to order</string>
+    <string name="lihat_order"><u><b>Lihat Detail Order</b></u></string>
+
+    <string-array name="spinnerListMenu">
+        <item><b>All</b></item>
+        <item><b>Pizza</b></item>
+        <item><b>Drink</b></item>
+        <item><b>Side Dish</b></item>
+    </string-array>
+    <string-array name="spinnerListAlamat">
+        <item><b>All</b></item>
+        <item><b>Apartemen</b></item>
+        <item><b>Kantor</b></item>
+        <item><b>Kos</b></item>
+        <item><b>Rumah</b></item>
+    </string-array>
 </resources>

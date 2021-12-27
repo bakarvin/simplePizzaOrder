@@ -30,14 +30,7 @@ public class ModelTopping {
     public void setNamaTopping(String namaTopping) {
         this.namaTopping = namaTopping;
     }
-//
-//    public String getHargaTopping() {
-//        return hargaTopping;
-//    }
-//
-//    public void setHargaTopping(String hargaTopping) {
-//        this.hargaTopping = hargaTopping;
-//    }
+
     public int getHargaTopping() {
         return hargaTopping;
     }

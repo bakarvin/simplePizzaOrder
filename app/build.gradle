@@ -14,6 +14,33 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "BASE_URL", "\"https://apkpizzatime.000webhostapp.com/pizzatime/\""
+        //buildConfigField "String", "BASE_URL", "\"http://192.168.1.8/pizzatime/\""
+
+        buildConfigField "String", "READ_MENU", "\"menu/read.php\""
+        buildConfigField "String", "SEARCH_MENU", "\"menu/search.php\""
+
+        buildConfigField "String", "INSERT_USER", "\"user/insert.php\""
+        buildConfigField "String", "LOGIN_USER", "\"user/login.php\""
+        buildConfigField "String", "CHECK_USER", "\"user/check_user.php\""
+        buildConfigField "String", "CHANGE_PASSWORD", "\"user/change_password.php\""
+        buildConfigField "String", "UPDATE_USER", "\"user/update.php\""
+
+        buildConfigField "String", "INSERT_ALAMAT", "\"alamat/insert.php\""
+        buildConfigField "String", "READ_ALAMAT", "\"alamat/read.php\""
+        buildConfigField "String", "FILTER_ALAMAT_USER", "\"alamat/filter.php\""
+
+        buildConfigField "String", "INSERT_TRANSAKSI", "\"transaksi/insert.php\""
+        buildConfigField "String", "FILTER_TRANSAKSI", "\"transaksi/filter.php\""
+
+        buildConfigField "String", "INSERT_DETAIL_TRANSAKSI", "\"detail_transaksi/insert.php\""
+        buildConfigField "String", "READ_DETAIL_TRANSAKSI", "\"detail_transaksi/read.php\""
+
+        buildConfigField "String", "INSERT_CUSTOM_TRANSAKSI", "\"custom_transaksi/insert.php\""
+
+
+
     }
 
     buildTypes {
@@ -36,10 +63,20 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "com.airbnb.android:lottie:3.6.1"
     implementation 'com.github.florent37:expansionpanel:1.2.4'
     implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.romandanylyk:pageindicatorview:0.1.1'
+    implementation 'com.synnapps:carouselview:0.1.4'
+
+    implementation 'com.squareup.retrofit2:retrofit:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.4.0'
+    implementation 'com.squareup.retrofit2:converter-scalars:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+
 }

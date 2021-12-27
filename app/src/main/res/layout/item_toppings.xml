@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/itemCardOutter"
     android:layout_width="80dp"
-    android:layout_height="100dp"
+    android:layout_height="120dp"
     android:background="#FBFBFB"
     android:layout_margin="1dp">
 
@@ -11,19 +11,22 @@
         android:id="@+id/itemCardInner"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="3dp">
+        android:layout_margin="4dp">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:layout_gravity="center"
                 android:id="@+id/itemImg"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:src="@color/red"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/itemNama"/>
 
             <TextView
                 android:id="@+id/itemNama"
@@ -31,15 +34,26 @@
                 android:layout_height="wrap_content"
                 android:padding="3dp"
                 android:text="Toppings"
+                android:gravity="center"
                 android:lines="2"
-                android:textAlignment="center" />
+                android:textAlignment="center"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
 
             <TextView
                 android:id="@+id/itemHarga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Harga"
-                android:textAlignment="center" />
-        </LinearLayout>
+                android:textAlignment="center"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="@color/black_20"
+                app:layout_constraintBottom_toTopOf="@id/itemNama"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.cardview.widget.CardView>

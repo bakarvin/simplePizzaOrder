@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="banner_height">200dp</dimen>
+    <dimen name="_2sdp">2dp</dimen>
+    <dimen name="tool_bar_height">60dp</dimen>
+    <dimen name="checkout_bar_height">100dp</dimen>
+</resources>
