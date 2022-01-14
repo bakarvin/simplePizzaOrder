@@ -18,4 +18,5 @@
     <color name="orange_700">#FFFF8A00</color>
     <color name="orange_500">#FFFFC700</color>
     <color name="orange_200">#FFFFD544</color>
+    <color name="status_bar">#40000000</color>
 </resources>

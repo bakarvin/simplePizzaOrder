@@ -63,9 +63,17 @@ public interface ApiService {
                                             @Field("total_trans") String total_trans,
                                             @Field("alamat_user") String alamat_user);
 
+    @FormUrlEncoded
+    @POST(UPDATE_TRANSAKSI)
+    Call<TransaksiResponse> updateTransaksi(@Field("id_trans") String id_trans,
+                                            @Field("status_trans") String status_trans);
+
     @GET(FILTER_TRANSAKSI)
-    Call<TransaksiResponse> filterTransaksi(@Query("username")String username,
-                                            @Query("status_trans")String status_trans);
+    Call<TransaksiResponse> filterTransaksi(@Query("username") String username,
+                                            @Query("kode") String kode);
+
+    @GET(READ_TRANSAKSI)
+    Call<TransaksiResponse> readTransaksi(@Query("id_trans") String id_trans);
 
     /*DETAIL TRANSAKSI*/
     @FormUrlEncoded
@@ -83,6 +91,9 @@ public interface ApiService {
                                                         @Field("free_topping") String free_topping,
                                                         @Field("extra_topping") String extra_topping,
                                                         @Field("total_trans") String total_trans);
+
+    @GET(READ_CUSTOM_TRANSAKSI)
+    Call<CustomTransaksiResponse> readCustomTransaksi(@Query("id_trans") String id_trans);
 
     /*ALAMAT USER*/
     @FormUrlEncoded

@@ -10,19 +10,18 @@ import retrofit2.Response;
 
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
-import android.widget.Toast;
-
 import com.bakarvin.pizzatime.Api.ConfigRetrofit;
 import com.bakarvin.pizzatime.Model.User.UserResponse;
 import com.bakarvin.pizzatime.Preferences;
-import com.bakarvin.pizzatime.R;
 import com.bakarvin.pizzatime.TambahAlamatRegistActivity;
-import com.bakarvin.pizzatime.View.Ui.MainActivity;
 import com.bakarvin.pizzatime.databinding.FragmentRegisterBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 public class RegisterFragment extends Fragment {
 
@@ -33,7 +32,7 @@ public class RegisterFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         registerBinding = FragmentRegisterBinding.inflate(inflater, container, false);
@@ -89,7 +88,8 @@ public class RegisterFragment extends Fragment {
         String username = registerBinding.edtUsername.getText().toString();
         ConfigRetrofit.service.checkUser(username).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(@NotNull Call<UserResponse> call, @NotNull Response<UserResponse> response) {
+                assert response.body() != null;
                 int kode = response.body().getKode();
                 if (kode == 2){
                     registUser();
@@ -98,8 +98,8 @@ public class RegisterFragment extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-
+            public void onFailure(@NotNull Call<UserResponse> call, @NotNull Throwable t) {
+                Log.d("Server Error", t.getMessage());
             }
         });
     }
@@ -111,7 +111,8 @@ public class RegisterFragment extends Fragment {
         final String pass_user = registerBinding.edtPass.getText().toString();
         ConfigRetrofit.service.insertUser(username, nama_user, telp_user, pass_user).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(@NotNull Call<UserResponse> call, @NotNull Response<UserResponse> response) {
+                assert response.body() != null;
                 int kode = response.body().getKode();
                 if (kode == 1){
                     setSharedPref(username);
@@ -120,8 +121,8 @@ public class RegisterFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-
+            public void onFailure(@NotNull Call<UserResponse> call, @NotNull Throwable t) {
+                Log.d("Server Error", t.getMessage());
             }
         });
     }

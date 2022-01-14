@@ -95,8 +95,6 @@
 
                     </LinearLayout>
 
-
-
                     <ImageView
                         android:id="@+id/imgBack"
                         android:layout_marginEnd="10dp"
@@ -110,7 +108,9 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </androidx.appcompat.widget.Toolbar>
+
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -264,10 +264,13 @@
                                         android:textAlignment="center"
                                         android:textColor="@drawable/text_color" />
                                 </RadioGroup>
+
                             </LinearLayout>
 
                         </com.github.florent37.expansionpanel.ExpansionLayout>
+
                     </LinearLayout>
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView

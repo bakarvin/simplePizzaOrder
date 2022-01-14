@@ -34,6 +34,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -56,6 +57,12 @@ public class CustomPizzaActivity extends AppCompatActivity {
     Context context;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getAlamat();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         customPizza = ActivityCustomPizzaBinding.inflate(getLayoutInflater());
@@ -68,7 +75,11 @@ public class CustomPizzaActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                startActivity(new Intent(CustomPizzaActivity.this, example.class));
-                checkOut();
+                if (Preferences.getAlamatUserSingkat(context).isEmpty()){
+                    dialogAddAlamat();
+                } else {
+                    checkOut();
+                }
             }
         });
         customPizza.txtAlamat.setOnClickListener(new View.OnClickListener() {
@@ -227,61 +238,47 @@ public class CustomPizzaActivity extends AppCompatActivity {
 
     private void checkOut(){
         String uname = Preferences.getLoginUname(context);
-        final String tgl_trans_db = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        final String tgl_trans = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+        final String tgl_trans_db = new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.getDefault()).format(new Date());
+        final String tgl_trans = new SimpleDateFormat("yyyyMMddhhmm", Locale.getDefault()).format(new Date());
+        final String time_trans = new SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(new Date());
         final String id_trans = "customx"+uname+tgl_trans;
         final String total_trans = str_priceTotal;
         final String free_topping = myFreeToppings.toString();
         final String extra_topping = myExtraNameToppings.toString();
-        String alamat_user = "";
-
-
-        if (customPizza.txtRBSIZE.getText().equals("")){
-            Toast.makeText(context, "Belum pilih ukuran pizza", Toast.LENGTH_SHORT).show();
-        } else {
-            if (Preferences.getAlamatUserLengkap(context).isEmpty()){
-                dialogAddAlamat();
-            } else {
-                alamat_user = Preferences.getAlamatUserLengkap(context);
-                Toast.makeText(context, id_trans + " " + uname + " " + tgl_trans + " " + total_trans + " " + alamat_user, Toast.LENGTH_SHORT).show();
-                ConfigRetrofit.service.insertTransaksi(id_trans,uname,tgl_trans_db,total_trans,alamat_user).enqueue(new Callback<TransaksiResponse>() {
-                    @Override
-                    public void onResponse(Call<TransaksiResponse> call, Response<TransaksiResponse> response) {
-                        int kode = response.body().getKode();
-                        Toast.makeText(context, String.valueOf(kode), Toast.LENGTH_SHORT).show();
-                        if (kode == 1){
-                            insertCustomTransaksi(id_trans, sizePizza, free_topping, extra_topping, total_trans);
-                        } else {
-                            Toast.makeText(context, "Transaksi Gagal", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<TransaksiResponse> call, Throwable t) {
-                        Log.d("Server Error", t.getMessage());
-                    }
-                });
+        final String alamat_user = Preferences.getAlamatUserLengkap(context);
+        Toast.makeText(context, id_trans + " " + uname + " " + tgl_trans + " " + total_trans + " " + alamat_user + " " + time_trans, Toast.LENGTH_SHORT).show();
+        ConfigRetrofit.service.insertTransaksi(id_trans,uname,tgl_trans_db,total_trans,alamat_user).enqueue(new Callback<TransaksiResponse>() {
+            @Override
+            public void onResponse(Call<TransaksiResponse> call, Response<TransaksiResponse> response) {
+                int kode = response.body().getKode();
+                Toast.makeText(context, String.valueOf(kode), Toast.LENGTH_SHORT).show();
+                if (kode == 1){
+                    insertCustomTransaksi(id_trans, sizePizza, free_topping, extra_topping, total_trans, tgl_trans, alamat_user, time_trans);
+                } else {
+                    Toast.makeText(context, "Transaksi Gagal", Toast.LENGTH_SHORT).show();
+                }
             }
-        }
+            @Override
+            public void onFailure(Call<TransaksiResponse> call, Throwable t) {
+                Log.d("Server Error", t.getMessage());
+            }
+        });
     }
 
-    private void insertCustomTransaksi(String id_trans, String sizePizza, String free_topping, String extra_topping, String total_trans){
+    private void insertCustomTransaksi(String id_trans, String sizePizza, String free_topping, String extra_topping, String total_trans, String tgl_trans, String alamat_user, String time_trans){
         ConfigRetrofit.service.insertCustomTransaksi(id_trans, sizePizza, free_topping, extra_topping, total_trans).enqueue(new Callback<CustomTransaksiResponse>() {
             @Override
             public void onResponse(Call<CustomTransaksiResponse> call, Response<CustomTransaksiResponse> response) {
                 int kode = response.body().getKode();
                 if (kode == 1){
-                    Toast.makeText(context, "BERHASIL", Toast.LENGTH_SHORT).show();
-
-//                    Intent i = new Intent(context, example.class);
-//                    i.putExtra("kode", 1);
-//                    i.putExtra("cstPizza", "Custom Pizza ("+sizePizza+")");
-//                    i.putExtra("cstPrice", String.valueOf(priceSize));
-//                    i.putExtra("cstFreeTop", myFreeToppings.toString());
-//                    i.putExtra("cstTotal", customPizza.txtSubTotal.getText().toString());
-//                    i.putStringArrayListExtra("cstExtraPrice", myExtraPriceToppings);
-//                    i.putStringArrayListExtra("cstExtraName", myExtraNameToppings);
-//                    startActivity(i);
+                    Intent i = new Intent(context, LoadingOrderActivity.class);
+                    i.putExtra("id_trans", id_trans);
+                    i.putExtra("tgl_trans", tgl_trans);
+                    i.putExtra("total_trans", total_trans);
+                    i.putExtra("alamat_user", alamat_user);
+                    i.putExtra("time_trans", time_trans);
+                    startActivity(i);
+                    finish();
                 } else {
                     Toast.makeText(context, "GAGAL", Toast.LENGTH_SHORT).show();
                 }
@@ -293,7 +290,6 @@ public class CustomPizzaActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void dialogAddAlamat() {
         AlertDialog dialog = new AlertDialog.Builder(context).create();

@@ -9,7 +9,9 @@ import retrofit2.Response;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -27,18 +29,29 @@ import com.bakarvin.pizzatime.databinding.DialogContinueShopBinding;
 import com.synnapps.carouselview.ImageClickListener;
 import com.synnapps.carouselview.ImageListener;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
     ActivityMainBinding mainBinding;
     Context context;
+
     int[] sampleImg =
             {
                     R.drawable.bg1,
                     R.drawable.bg2,
                     R.drawable.bg3
             };
+
+    ImageListener imageListener = new ImageListener() {
+        @Override
+        public void setImageForPosition(int position, ImageView imageView) {
+            imageView.setImageResource(sampleImg[position]);
+        }
+    };
+
     SqliteManager sqliteManager;
 
     @Override
@@ -46,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(mainBinding.getRoot());
-        //getWindow().setStatusBarColor(getResources().getColor(R.color.orange_700));
         context = MainActivity.this;
         sqliteManager = new SqliteManager(context);
         sqliteManager.open();
@@ -62,18 +74,12 @@ public class MainActivity extends AppCompatActivity {
         checkUser();
     }
 
-    ImageListener imageListener = new ImageListener() {
-        @Override
-        public void setImageForPosition(int position, ImageView imageView) {
-            imageView.setImageResource(sampleImg[position]);
-        }
-    };
-
     private void checkUser(){
         String uname = Preferences.getLoginUname(getBaseContext());
         ConfigRetrofit.service.checkUser(uname).enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(@NotNull Call<UserResponse> call, @NotNull Response<UserResponse> response) {
+                assert response.body() != null;
                 int kode = response.body().getKode();
                 if (kode == 1){
                     List<ModelUser> result = response.body().getResult();
@@ -82,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<UserResponse> call, Throwable t) {
-
+            public void onFailure(@NotNull Call<UserResponse> call, @NotNull Throwable t) {
+                Log.d("Server Error", t.getMessage());
             }
         });
 
@@ -107,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         AlertDialog dialog = new AlertDialog.Builder(context).create();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         DialogContinueShopBinding dialogBinding = DialogContinueShopBinding.inflate(layoutInflater);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setView(dialogBinding.getRoot());
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -147,4 +154,5 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
     }
+
 }

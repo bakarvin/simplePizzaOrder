@@ -20,6 +20,8 @@ import com.bakarvin.pizzatime.Preferences;
 import com.bakarvin.pizzatime.View.Ui.MainActivity;
 import com.bakarvin.pizzatime.databinding.FragmentLoginBinding;
 
+import org.jetbrains.annotations.NotNull;
+
 public class LoginFragment extends Fragment {
 
     FragmentLoginBinding loginBinding;
@@ -29,7 +31,7 @@ public class LoginFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         loginBinding = FragmentLoginBinding.inflate(inflater, container, false);
@@ -52,7 +54,8 @@ public class LoginFragment extends Fragment {
         } else {
             ConfigRetrofit.service.loginUser(username, pass).enqueue(new Callback<UserResponse>() {
                 @Override
-                public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+                public void onResponse(@NotNull Call<UserResponse> call, @NotNull Response<UserResponse> response) {
+                    assert response.body() != null;
                     int kode = response.body().getKode();
                     if (kode == 1){
                         setSharedPref(username);
@@ -62,7 +65,7 @@ public class LoginFragment extends Fragment {
                     }
                 }
                 @Override
-                public void onFailure(Call<UserResponse> call, Throwable t) {
+                public void onFailure(@NotNull Call<UserResponse> call, @NotNull Throwable t) {
                     Log.d("Server Error", t.getMessage());
                 }
             });

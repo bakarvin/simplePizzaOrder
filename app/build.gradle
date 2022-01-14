@@ -33,11 +33,14 @@ android {
 
         buildConfigField "String", "INSERT_TRANSAKSI", "\"transaksi/insert.php\""
         buildConfigField "String", "FILTER_TRANSAKSI", "\"transaksi/filter.php\""
+        buildConfigField "String", "READ_TRANSAKSI", "\"transaksi/read.php\""
+        buildConfigField "String", "UPDATE_TRANSAKSI", "\"transaksi/update.php\""
 
         buildConfigField "String", "INSERT_DETAIL_TRANSAKSI", "\"detail_transaksi/insert.php\""
         buildConfigField "String", "READ_DETAIL_TRANSAKSI", "\"detail_transaksi/read.php\""
 
         buildConfigField "String", "INSERT_CUSTOM_TRANSAKSI", "\"custom_transaksi/insert.php\""
+        buildConfigField "String", "READ_CUSTOM_TRANSAKSI", "\"custom_transaksi/read.php\""
 
 
 

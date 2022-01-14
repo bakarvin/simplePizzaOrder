@@ -11,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ import com.bakarvin.pizzatime.Model.DetailTransaksi.ModelDetailTransaksi;
 import com.bakarvin.pizzatime.Model.ModelShoppingCart;
 import com.bakarvin.pizzatime.databinding.ActivityShoppingCartBinding;
 import com.bakarvin.pizzatime.databinding.DialogAddAlamatBinding;
+import com.bakarvin.pizzatime.example;
 import com.google.gson.Gson;
 
 import org.json.JSONArray;
@@ -109,6 +111,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         AlertDialog dialog = new AlertDialog.Builder(context).create();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         DialogAddAlamatBinding dialogAlamatBinding = DialogAddAlamatBinding.inflate(layoutInflater);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setView(dialogAlamatBinding.getRoot());
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
@@ -121,7 +124,6 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint("SetTextI18n")
     public void getAlamat(){
         if (!Preferences.getAlamatUserSingkat(context).isEmpty()){
             cartBinding.txtAlamat.setText(Preferences.getAlamatUserSingkat(context));
@@ -228,8 +230,9 @@ public class ShoppingCartActivity extends AppCompatActivity {
         progressDialog.setMessage("Menambahkan Pesanan");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        final String tgl_trans_db = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
-        final String tgl_trans = new SimpleDateFormat("yyyyMMdd", Locale.getDefault()).format(new Date());
+        final String tgl_trans_db = new SimpleDateFormat("yyyy-MM-dd hh:mm", Locale.getDefault()).format(new Date());
+        final String tgl_trans = new SimpleDateFormat("yyyyMMddhhmm", Locale.getDefault()).format(new Date());
+        final String time_trans = new SimpleDateFormat("hh:mm:ss", Locale.getDefault()).format(new Date());
         final String total_trans = cartBinding.txtTotalPrice.getText().toString();
         final String uname = Preferences.getLoginUname(context);
         final String id_trans = "premade"+uname+tgl_trans;
@@ -240,7 +243,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
                 int kode = response.body().getKode();
                 Toast.makeText(context, String.valueOf(kode), Toast.LENGTH_SHORT).show();
                 if (kode == 1){
-                    checkoutDetailTransaksi(id_trans,total_trans);
+                    checkoutDetailTransaksi(id_trans,total_trans,tgl_trans,alamat_user,time_trans);
                 }
             }
 
@@ -252,7 +255,7 @@ public class ShoppingCartActivity extends AppCompatActivity {
         });
     }
 
-    private void checkoutDetailTransaksi(String id_trans, String total_trans){
+    private void checkoutDetailTransaksi(String id_trans, String total_trans, String tgl_trans, String alamat_user, String time_trans){
         insertDetailTrans(id_trans);
         String jsonArrays = gson.toJson(detailTransList);
         Log.d("Server: ", jsonArrays);
@@ -262,11 +265,14 @@ public class ShoppingCartActivity extends AppCompatActivity {
             public void onResponse(Call<DetailTransaksiResponse> call, Response<DetailTransaksiResponse> response) {
                 int kode = response.body().getKode();
                 if (kode ==1) {
-//                    Intent i = new Intent(context, example.class);
-//                    i.putExtra("cstTotal", total_trans);
-//                    i.putExtra("kode",2);
-//                    startActivity(i);
-//                    finish();
+                    Intent i = new Intent(context, LoadingOrderActivity.class);
+                    i.putExtra("id_trans", id_trans);
+                    i.putExtra("tgl_trans", tgl_trans);
+                    i.putExtra("total_trans", total_trans);
+                    i.putExtra("alamat_user", alamat_user);
+                    i.putExtra("time_trans", time_trans);
+                    startActivity(i);
+                    finish();
                     progressDialog.dismiss();
                     Log.d("kode", String.valueOf(kode));
                 } else {

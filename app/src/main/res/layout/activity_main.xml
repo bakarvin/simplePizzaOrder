@@ -5,13 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    xmlns:attrs="http://schemas.android.com/tools"
     tools:context=".View.Ui.MainActivity"
     android:background="@raw/bgy">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
     <com.synnapps.carouselview.CarouselView
         android:id="@+id/carouselView"
@@ -34,13 +33,14 @@
             android:textSize="6sp"
             app:cardBackgroundColor="@color/transparent"
             app:layout_constraintBottom_toBottomOf="@id/carouselView"
-            app:layout_constraintEnd_toEndOf="parent">
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="SmallSp">
 
             <TextView
                 android:onClick="onMainClicked"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Semua Promo"
+                android:text="@string/semua_promo_text"
                 android:gravity="center"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -71,7 +71,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:text="Hi, " />
+                android:text="@string/greetings_text" />
 
             <TextView
                 android:id="@+id/txtNamaUser"
@@ -81,11 +81,11 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                android:text="Hi, Champ!" />
+                tools:text="@string/nama_penerima_text" />
 
         <LinearLayout
             android:gravity="center_vertical|end"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginEnd="5dp"
             android:layout_weight="1"
@@ -97,7 +97,8 @@
                 android:layout_margin="3dp"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_location"/>
+                android:src="@drawable/ic_location"
+                android:contentDescription="@string/image_lokasi_desc" />
 
             <ImageView
                 android:onClick="onMainClicked"
@@ -105,7 +106,8 @@
                 android:layout_margin="3dp"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_person"/>
+                android:src="@drawable/ic_person"
+                android:contentDescription="@string/image_profil_desc" />
 
         </LinearLayout>
 
@@ -126,9 +128,10 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
             android:paddingStart="5dp"
+            android:paddingEnd="5dp"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:text="Main Menu"/>
+            android:text="@string/mainmenu_text"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -157,15 +160,16 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
+                        android:layout_height="0dp"
                         android:padding="10dp"
                         android:src="@raw/pizza"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_menu_desc" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="List Menu"
+                        android:text="@string/listmenu_text"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textAlignment="center"
@@ -196,15 +200,16 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="130dp"
+                        android:layout_height="0dp"
                         android:padding="10dp"
                         android:src="@raw/pizza_custom"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        android:contentDescription="@string/image_custom_desc" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="20dp"
-                        android:text="Custom Pizza"
+                        android:text="@string/custom_pizza_text"
                         android:textStyle="bold"
                         android:textColor="@color/white"
                         android:textAlignment="center"
@@ -212,8 +217,6 @@
                         android:layout_marginBottom="5dp"/>
 
                 </LinearLayout>
-
-
 
             </androidx.cardview.widget.CardView>
 
@@ -234,13 +237,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:src="@color/teal_200"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
                 android:src="@color/purple_200"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                tools:ignore="ContentDescription" />
 
         </LinearLayout>
 

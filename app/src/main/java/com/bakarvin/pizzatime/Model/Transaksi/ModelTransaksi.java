@@ -7,13 +7,15 @@ public class ModelTransaksi {
     private String tgl_trans;
     private String total_trans;
     private String alamat_user;
+    private String status_trans;
 
-    public ModelTransaksi(String id_trans, String username, String tgl_trans, String total_trans, String alamat_user) {
+    public ModelTransaksi(String id_trans, String username, String tgl_trans, String total_trans, String alamat_user, String status_trans) {
         this.id_trans = id_trans;
         this.username = username;
         this.tgl_trans = tgl_trans;
         this.total_trans = total_trans;
         this.alamat_user = alamat_user;
+        this.status_trans = status_trans;
     }
 
     public String getUsername() {
@@ -54,5 +56,13 @@ public class ModelTransaksi {
 
     public void setTotal_trans(String total_trans) {
         this.total_trans = total_trans;
+    }
+
+    public String getStatus_trans() {
+        return status_trans;
+    }
+
+    public void setStatus_trans(String status_trans) {
+        this.status_trans = status_trans;
     }
 }

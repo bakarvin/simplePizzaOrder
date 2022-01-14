@@ -11,11 +11,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.bakarvin.pizzatime.Api.ConfigRetrofit;
 import com.bakarvin.pizzatime.Model.Alamat.AlamatResponse;
 import com.bakarvin.pizzatime.View.Ui.MainActivity;
 import com.bakarvin.pizzatime.databinding.ActivityTambahAlamatRegistBinding;
+
+import org.jetbrains.annotations.NotNull;
 
 public class TambahAlamatRegistActivity extends AppCompatActivity {
 
@@ -74,11 +77,17 @@ public class TambahAlamatRegistActivity extends AppCompatActivity {
                                       " Telp: "+telp+","+
                                       " Alamat: "+tipe+", "+kota+", "+kodepos+", "+alamat;
         if (username.isEmpty() || nama.isEmpty() || telp.isEmpty() || tipe.isEmpty() || kota.isEmpty() || kodepos.isEmpty() || alamat.isEmpty()){
-
+            tambahAlamatRegistBinding.txtNama.setError("Mohon Isi Semua Kolom");
+            tambahAlamatRegistBinding.txtTelp.setError("Mohon Isi Semua Kolom");
+            tambahAlamatRegistBinding.txtKota.setError("Mohon Isi Semua Kolom");
+            tambahAlamatRegistBinding.txtKodepos.setError("Mohon Isi Semua Kolom");
+            tambahAlamatRegistBinding.txtAlamat.setError("Mohon Isi Semua Kolom");
+            Toast.makeText(context, "Tidak Boleh ada kolom kosong", Toast.LENGTH_SHORT).show();
         } else {
             ConfigRetrofit.service.insertAlamat(username,nama,telp, tipe,kota,kodepos,alamat).enqueue(new Callback<AlamatResponse>() {
                 @Override
-                public void onResponse(Call<AlamatResponse> call, Response<AlamatResponse> response) {
+                public void onResponse(@NotNull Call<AlamatResponse> call, @NotNull Response<AlamatResponse> response) {
+                    assert response.body() != null;
                     int kode = response.body().getKode();
                     if (kode==1){
                         startActivity(new Intent(context, MainActivity.class));
@@ -88,7 +97,7 @@ public class TambahAlamatRegistActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<AlamatResponse> call, Throwable t) {
+                public void onFailure(@NotNull Call<AlamatResponse> call, @NotNull Throwable t) {
                     Log.d("Server Error", t.getMessage());
                 }
             });

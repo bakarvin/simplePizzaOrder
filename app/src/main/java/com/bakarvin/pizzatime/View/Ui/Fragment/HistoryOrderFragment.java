@@ -47,10 +47,11 @@ public class HistoryOrderFragment extends Fragment {
         getTransaksi();
         return v;
     }
+
     private void getTransaksi(){
         transaksiList.clear();
         String uname = Preferences.getLoginUname(context);
-        ConfigRetrofit.service.filterTransaksi(uname,"").enqueue(new Callback<TransaksiResponse>() {
+        ConfigRetrofit.service.filterTransaksi(uname,"2").enqueue(new Callback<TransaksiResponse>() {
             @Override
             public void onResponse(Call<TransaksiResponse> call, Response<TransaksiResponse> response) {
                 int kode = response.body().getKode();
@@ -63,13 +64,15 @@ public class HistoryOrderFragment extends Fragment {
                     adapterTransaksi.ActionClick(new AdapterRiwayatTransaksi.onAction() {
                         @Override
                         public void onActionClick(View view, int position) {
-                            Intent i = new Intent(context, DetailTransaksiActivity.class);
-                            i.putExtra("id_trans",result.get(position).getId_trans());
-                            i.putExtra("tgl_trans",result.get(position).getTgl_trans());
-                            i.putExtra("total_trans",result.get(position).getTotal_trans());
-                            i.putExtra("alamat_user",result.get(position).getAlamat_user());
-                            Toast.makeText(context, String.valueOf(result.get(position).getId_trans()), Toast.LENGTH_SHORT).show();
-                            startActivity(i);
+                            DialogDetailTransaksiFragment dialogFragment = new DialogDetailTransaksiFragment();
+                            Bundle bundle = new Bundle();
+                            bundle.putString("id_trans",result.get(position).getId_trans());
+                            bundle.putString("tgl_trans",result.get(position).getTgl_trans());
+                            bundle.putString("total_trans",result.get(position).getTotal_trans());
+                            bundle.putString("alamat_user",result.get(position).getAlamat_user());
+                            bundle.putString("status_trans", result.get(position).getStatus_trans());
+                            dialogFragment.setArguments(bundle);
+                            dialogFragment.show(getFragmentManager(),dialogFragment.getTag());
                         }
                     });
                 } else {

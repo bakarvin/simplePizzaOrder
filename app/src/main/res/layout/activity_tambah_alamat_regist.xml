@@ -32,7 +32,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_back_arrow" />
+                app:srcCompat="@drawable/ic_back_arrow"
+                android:contentDescription="@string/image_back_desc" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -40,7 +41,7 @@
             android:id="@+id/txtTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add Location"
+            android:text="@string/addlocation_text"
             android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold"
@@ -51,7 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
-            android:text="place text here"
+            android:text="@string/addlocation_desc_text"
             android:layout_marginBottom="20dp"/>
 
     </LinearLayout>
@@ -82,59 +83,56 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nama Penerima"
+                    android:text="@string/nama_penerima_text"
                     android:textSize="12sp"/>
 
                 <EditText
                     android:id="@+id/txtNama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nama Penerima"
+                    android:hint="@string/penerima_lokasi_hint"
                     android:inputType="textPersonName"
                     android:layout_marginBottom="20dp"
-                    android:theme="@style/MyEditTextTheme"/>
+                    android:theme="@style/MyEditTextTheme"
+                    android:autofillHints="" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nomor Telp"
+                    android:text="@string/nomor_telp_text"
                     android:textSize="12sp"/>
 
                 <EditText
                     android:id="@+id/txtTelp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Nomor Telepon"
+                    android:hint="@string/telepon_lokasi_hint"
                     android:inputType="phone"
                     android:layout_marginBottom="20dp"
-                    android:theme="@style/MyEditTextTheme"/>
+                    android:theme="@style/MyEditTextTheme"
+                    android:autofillHints="" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Tipe Alamat"
+                    android:text="@string/tipe_alamat_text"
                     android:textSize="12sp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="20dp">
 
                     <RadioGroup
                         android:id="@+id/rdAlamat"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
+                        android:padding="5dp"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="20dp">
 
                         <RadioButton
                             android:id="@+id/rbRumah"
@@ -149,7 +147,8 @@
                             android:onClick="onRadioClicked"
                             android:paddingTop="2dp"
                             android:paddingEnd="2dp"
-                            android:text="Rumah" />
+                            android:text="@string/rumah_text"
+                            tools:ignore="RtlSymmetry" />
 
                         <RadioButton
                             android:id="@+id/rbKantor"
@@ -164,7 +163,8 @@
                             android:onClick="onRadioClicked"
                             android:paddingTop="2dp"
                             android:paddingEnd="2dp"
-                            android:text="Kantor" />
+                            android:text="@string/kantor_text"
+                            tools:ignore="RtlSymmetry" />
 
                         <RadioButton
                             android:id="@+id/rbKos"
@@ -179,7 +179,8 @@
                             android:onClick="onRadioClicked"
                             android:paddingTop="2dp"
                             android:paddingEnd="2dp"
-                            android:text="Kos" />
+                            android:text="@string/kos_text"
+                            tools:ignore="RtlSymmetry" />
 
                         <RadioButton
                             android:id="@+id/rbApartemen"
@@ -194,16 +195,15 @@
                             android:onClick="onRadioClicked"
                             android:paddingTop="2dp"
                             android:paddingEnd="2dp"
-                            android:text="Apartemen" />
+                            android:text="@string/apartemen_text"
+                            tools:ignore="RtlSymmetry" />
 
                     </RadioGroup>
-
-                </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kota &amp; Kode Pos"
+                    android:text="@string/kota_kodepos_text"
                     android:textSize="12sp"/>
 
                 <LinearLayout
@@ -216,55 +216,58 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Kota"
+                        android:hint="@string/kota_lokasi_hint"
                         android:inputType="textPersonName"
                         android:layout_marginBottom="20dp"
-                        android:theme="@style/MyEditTextTheme"/>
+                        android:theme="@style/MyEditTextTheme"
+                        android:autofillHints="" />
 
                     <EditText
                         android:id="@+id/txtKodepos"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="Kode Pos"
+                        android:hint="@string/kodepos_lokasi_hint"
                         android:inputType="phone"
                         android:layout_marginBottom="20dp"
-                        android:theme="@style/MyEditTextTheme"/>
+                        android:theme="@style/MyEditTextTheme"
+                        android:autofillHints="" />
 
                 </LinearLayout>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Alamat Lengkap"
+                    android:text="@string/alamat_lengkap_text"
                     android:textSize="12sp"/>
 
                 <EditText
                     android:id="@+id/txtAlamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Alamat Lengkap"
+                    android:hint="@string/alamat_lokasi_hint"
                     android:inputType="textMultiLine"
                     android:gravity="top"
                     android:lines="3"
                     android:maxLines="3"
                     android:layout_marginBottom="20dp"
-                    android:theme="@style/MyEditTextTheme"/>
+                    android:theme="@style/MyEditTextTheme"
+                    android:autofillHints="" />
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnAdd"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/orange_500"
-                        android:layout_gravity="start"
                         app:cardCornerRadius="15dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -273,7 +276,7 @@
                             android:layout_marginEnd="35dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Simpan"
+                            android:text="@string/simpan_text"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="18sp"
@@ -282,15 +285,14 @@
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/btnPass"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
                         app:cardBackgroundColor="@color/gray_700"
                         app:cardElevation="@dimen/_2sdp"
                         app:cardCornerRadius="15dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent">
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="1">
 
                         <TextView
                             android:layout_width="match_parent"
@@ -299,16 +301,14 @@
                             android:layout_marginEnd="35dp"
                             android:layout_marginTop="10dp"
                             android:layout_marginBottom="10dp"
-                            android:text="Lewati"
+                            android:text="@string/lewati_text"
                             android:textAlignment="center"
                             android:textColor="@color/white"
                             android:textSize="18sp"
                             android:textStyle="bold"/>
                     </androidx.cardview.widget.CardView>
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
+                </LinearLayout>
 
             </LinearLayout>
 

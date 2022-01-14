@@ -6,11 +6,11 @@ public class ModelCustomTransaksi {
 
     private String id_trans;
     private String size_custom;
-    private List<String> free_topping;
-    private List<String> extra_topping;
+    private String free_topping;
+    private String extra_topping;
     private String total_trans;
 
-    public ModelCustomTransaksi(String id_trans, String size_custom, List<String> free_topping, List<String> extra_topping, String total_trans) {
+    public ModelCustomTransaksi(String id_trans, String size_custom, String free_topping, String extra_topping, String total_trans) {
         this.id_trans = id_trans;
         this.size_custom = size_custom;
         this.free_topping = free_topping;
@@ -34,19 +34,19 @@ public class ModelCustomTransaksi {
         this.size_custom = size_custom;
     }
 
-    public List<String> getFree_topping() {
+    public String getFree_topping() {
         return free_topping;
     }
 
-    public void setFree_topping(List<String> free_topping) {
+    public void setFree_topping(String free_topping) {
         this.free_topping = free_topping;
     }
 
-    public List<String> getExtra_topping() {
+    public String getExtra_topping() {
         return extra_topping;
     }
 
-    public void setExtra_topping(List<String> extra_topping) {
+    public void setExtra_topping(String extra_topping) {
         this.extra_topping = extra_topping;
     }
 

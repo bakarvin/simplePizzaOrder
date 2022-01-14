@@ -39,23 +39,51 @@
         app:cardCornerRadius="5dp">
 
         <LinearLayout
-            android:layout_margin="5dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/est_text"
-                android:textStyle="bold"
-                android:layout_marginEnd="5dp"/>
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/txtTimer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/est_time"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/est_text"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="5dp"/>
+
+                <TextView
+                    android:id="@+id/txtESTtime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/est_time"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/est_text"
+                    android:textStyle="bold"
+                    android:layout_marginEnd="5dp"/>
+
+                <TextView
+                    android:id="@+id/txtTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/est_time"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
@@ -95,8 +123,8 @@
 
     </androidx.cardview.widget.CardView>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardSize"
+    <androidx.cardview.widget.CardView
+            android:id="@+id/cardSummary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
@@ -106,149 +134,26 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="horizontal"
+                android:padding="5dp">
 
-                <com.github.florent37.expansionpanel.ExpansionHeader
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:expansion_headerIndicator="@id/headerSize"
-                    app:expansion_layout="@id/expanLayoutSize"
-                    app:expansion_toggleOnClick="true">
-
-                    <!-- HEADER -->
-                    <!-- HEADER INDICATOR -->
-                    <TextView
-                        android:paddingStart="5dp"
-                        android:id="@+id/txtPizzaSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_margin="5dp"
-                        android:text="Order Summary"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
-
-                    <ImageView
-                        android:id="@+id/headerSize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|right"
-                        android:layout_margin="5dp"
-                        android:layout_marginLeft="16dp"
-                        android:adjustViewBounds="true"
-                        app:srcCompat="@drawable/ic_expand_black" />
-
-
-                </com.github.florent37.expansionpanel.ExpansionHeader>
-
-                <com.github.florent37.expansionpanel.ExpansionLayout
-                    android:id="@+id/expanLayoutSize"
+                <TextView
+                    android:layout_weight="1"
+                    android:textStyle="bold"
+                    android:paddingStart="5dp"
+                    android:textSize="20sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white">
+                    android:text="Order Summary"
+                    android:layout_marginBottom="4dp" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_back_arrow"
+                    android:rotation="-90"/>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="5dp"
-                        android:layout_marginEnd="5dp"
-                        android:padding="5dp"
-                        android:orientation="horizontal">
-
-                        <TableLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="5dp"
-                            android:padding="3dp">
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:weightSum="3">
-
-                                <TextView
-                                    android:id="@+id/txtCustomPizza"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:text="@string/app_name" />
-
-                                <TextView
-                                    android:id="@+id/txtBasePrice"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/price_tag"
-                                    android:textAlignment="textEnd" />
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <TextView
-                                    android:id="@+id/txtFreeTop"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_span="2"
-                                    android:lines="2"
-                                    android:text="@string/app_name" />
-
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" >
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="@string/extra_top" />
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent" >
-
-                                <ListView
-                                    android:id="@+id/listExtraTop"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginStart="5dp"
-                                    android:layout_span="2"
-                                    android:layout_weight="2"
-                                    tools:listitem="@layout/item_order_detail" />
-                            </TableRow>
-
-                            <TableRow
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:weightSum="3">
-
-                                <TextView
-                                    android:id="@+id/textView14"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="2"
-                                    android:text="@string/total"
-                                    android:textStyle="bold" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="@string/price_tag"
-                                    android:textAlignment="textEnd"
-                                    android:textStyle="bold" />
-                            </TableRow>
-
-                        </TableLayout>
-
-                    </LinearLayout>
-
-                </com.github.florent37.expansionpanel.ExpansionLayout>
 
             </LinearLayout>
 

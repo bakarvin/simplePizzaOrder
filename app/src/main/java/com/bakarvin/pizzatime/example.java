@@ -1,9 +1,12 @@
 package com.bakarvin.pizzatime;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.LayoutInflater;
@@ -13,13 +16,18 @@ import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
 import com.bakarvin.pizzatime.Data.DBsqlite.SqliteManager;
+import com.bakarvin.pizzatime.View.Ui.Fragment.DialogDetailTransaksiFragment;
+import com.bakarvin.pizzatime.View.Ui.MainActivity;
 import com.bakarvin.pizzatime.View.Ui.ShoppingCartActivity;
 import com.bakarvin.pizzatime.databinding.DialogContinueShopBinding;
 import com.bakarvin.pizzatime.databinding.DialogRateFoodBinding;
 import com.bakarvin.pizzatime.databinding.ExampleBinding;
 
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -27,18 +35,18 @@ import java.util.Locale;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public class example extends AppCompatActivity {
     ExampleBinding exampleBinding;
 
-    private static final long START_TIME_IN_MILLIS = 60000;
+    private static final long START_TIME_IN_MILLIS = 300000;
     public CountDownTimer mCountDownTimer;
     private boolean mTimerRunning;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
     private long mEndTime;
+    String id_trans;
     Context context;
-    SqliteManager sqliteManager;
-
     ArrayList<String> myExtraPrice = new ArrayList<String>();
     ArrayList<String> myExtraName = new ArrayList<String>();
 
@@ -48,41 +56,32 @@ public class example extends AppCompatActivity {
         exampleBinding = ExampleBinding.inflate(getLayoutInflater());
         setContentView(exampleBinding.getRoot());
         context = example.this;
-        sqliteManager = new SqliteManager(context);
         startTimer();
-        getIntentData();
+        getSetIntentData();
+
     }
 
-    private void getIntentData() {
-        int kode = getIntent().getIntExtra("kode", 1);
-        if (kode == 1){
-            exampleBinding.txtCustomPizza.setText(getIntent().getStringExtra("cstPizza"));
-            exampleBinding.txtBasePrice.setText(getIntent().getStringExtra("cstPrice"));
-            exampleBinding.txtFreeTop.setText(getIntent().getStringExtra("cstFreeTop"));
-            exampleBinding.txtTotalPrice.setText(getIntent().getStringExtra("cstTotal"));
-            myExtraName = getIntent().getStringArrayListExtra("cstExtraName");
-            myExtraPrice = getIntent().getStringArrayListExtra("cstExtraPrice");
-            showMap(myExtraName,myExtraPrice);
-        } else {
-            exampleBinding.txtTotalPrice.setText(getIntent().getStringExtra("cstTotal"));
-        }
-    }
-
-    private void showMap(ArrayList<String> myExtraName, ArrayList<String> myExtraPrice) {
-        List<HashMap<String, String>> list = new ArrayList<>();
-
-        for (int i = 0; i < myExtraName.size(); i++) {
-            HashMap<String, String> hashMap = new HashMap<>();
-            hashMap.put("Name", myExtraName.get(i));
-            hashMap.put("Price", myExtraPrice.get(i));
-            list.add(hashMap);
-        }
-
-        String[] from = {"Name", "Price"};
-        int[] to = {R.id.itemTopNama, R.id.itemTopPrice};
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(getBaseContext(), list, R.layout.item_order_detail, from, to);
-        exampleBinding.listExtraTop.setAdapter(simpleAdapter);
+    private void getSetIntentData() {
+        id_trans = getIntent().getStringExtra("id_trans");
+        String tgl_trans = getIntent().getStringExtra("tgl_trans");
+        String total_trans = getIntent().getStringExtra("total_trans");
+        String alamat_user = getIntent().getStringExtra("alamat_user");
+        String time_trans = getIntent().getStringExtra("time_trans");
+        exampleBinding.txtTotalPrice.setText(total_trans);
+        exampleBinding.cardSummary.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogDetailTransaksiFragment dialogFragment = new DialogDetailTransaksiFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("id_trans",id_trans);
+                bundle.putString("tgl_trans",tgl_trans);
+                bundle.putString("total_trans",total_trans);
+                bundle.putString("alamat_user",alamat_user);
+                dialogFragment.setArguments(bundle);
+                dialogFragment.show(getSupportFragmentManager(),dialogFragment.getTag());
+            }
+        });
+        estTime(time_trans);
     }
 
     private void startTimer() {
@@ -109,16 +108,16 @@ public class example extends AppCompatActivity {
         AlertDialog dialog = new AlertDialog.Builder(context).create();
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         DialogRateFoodBinding dialogBinding = DialogRateFoodBinding.inflate(layoutInflater);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
         dialog.setView(dialogBinding.getRoot());
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
-        dialogBinding.lottieAnimationView.setOnClickListener(new View.OnClickListener() {
+        dialogBinding.cardComplete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sqliteManager.open();
                 dialog.dismiss();
-                sqliteManager.deleteAll();
-                sqliteManager.close();
+                finish();
+                startActivity(new Intent(context, MainActivity.class));
             }
         });
     }
@@ -128,6 +127,21 @@ public class example extends AppCompatActivity {
         int seconds = (int) (mTimeLeftInMillis / 1000) % 60;
         String timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         exampleBinding.txtTimer.setText(timeLeftFormatted);
+    }
+
+    private void estTime(String time_trans){
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat simpleDate = new SimpleDateFormat("hh:mm");
+        String time = time_trans;
+        try {
+            Date date = simpleDate.parse(time);
+            calendar.setTime(date);
+            calendar.add(Calendar.MINUTE, 5);
+            String result = simpleDate.format(calendar.getTime());
+            exampleBinding.txtESTtime.setText(result);
+        } catch (Exception e){
+
+        }
     }
 
     @Override
@@ -162,14 +176,19 @@ public class example extends AppCompatActivity {
     }
 
     public void createNotif(){
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.ic_launcher_background)
-                .setContentTitle("Your PIZZA is ready!!!")
+        Intent resultIntent = new Intent(this, SpecialIntentActivity.class);
+        resultIntent.putExtra("id_trans", id_trans);
+        resultIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        PendingIntent notifyPendingIntent = PendingIntent.getActivity(
+                this, 0, resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+                builder.setSmallIcon(R.drawable.ic_launcher_background)
+                .setContentTitle("Your PIZZA has Arrived!!!")
                 .setContentText("Prepare your tummy because your pizza is ready")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        NotificationManager notificationManager = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(notifyPendingIntent);
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         notificationManager.notify(0,builder.build());
     }
-
 
 }
